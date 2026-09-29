@@ -78,10 +78,17 @@
 
   .hero-art { position: relative; display: flex; justify-content: center; }
   .hero-logo {
-    position: absolute; width: 132px; left: 2%; top: 12%; transform: rotate(-10deg);
+    position: absolute; z-index: 2; width: 120px; left: 0; top: 8%; transform: rotate(-10deg);
     filter: drop-shadow(0 18px 30px rgba(42,36,56,.18)); animation: float 6s ease-in-out infinite;
   }
   @keyframes float { 50% { transform: rotate(-6deg) translateY(-12px); } }
+
+  /* Screenshots already come in their own phone mockups. */
+  .shot { filter: drop-shadow(0 30px 50px rgba(42,36,56,.22)); }
+  .hero-shots { position: relative; width: min(340px, 80vw); }
+  .hero-shots .front { position: relative; z-index: 1; width: 100%; }
+  .hero-shots .back { position: absolute; width: 80%; right: -30%; top: 12%; transform: rotate(8deg); }
+  .step-shot { width: min(230px, 64vw); margin-bottom: -90px; }
 
   /* Phone frame around real screenshots */
   .phone {
@@ -104,8 +111,9 @@
     background: var(--coral); color: #fff; font-weight: 900; margin-bottom: 14px;
   }
   .step h3 { font-weight: 900; font-size: 24px; margin: 0 0 8px; }
-  .step p { color: var(--ink-soft); line-height: 1.5; margin: 0 0 28px; font-size: 17px; }
-  .step .phone { margin-bottom: -120px; }
+  /* Same height for every description so the screenshots line up. */
+  .step p { color: var(--ink-soft); line-height: 1.5; margin: 0 0 28px; font-size: 17px; min-height: 4.5em; }
+
 
   /* Features */
   .features { background: var(--sky-soft); }
@@ -127,16 +135,20 @@
   .final p { color: rgba(255,255,255,.7); font-size: 18px; margin: 0 0 8px; }
   .final .badge img { height: 58px; }
 
-  footer { padding: 32px 0 48px; color: var(--ink-faint); font-size: 15px; }
+  footer { padding: 32px 0 48px; color: var(--ink-faint); font-size: 15px; display: grid; gap: 10px; }
+  footer .links { display: flex; gap: 20px; }
+  footer .links a { text-decoration: none; }
+  footer .links a:hover { color: var(--ink); }
+  .disclaimer { font-size: 13px; }
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
   @media (max-width: 900px) {
     .hero .wrap { grid-template-columns: 1fr; text-align: center; }
     .lead { margin-left: auto; margin-right: auto; }
     .cta-row { justify-content: center; }
-    .hero-logo { width: 96px; left: 4%; }
+    .hero-logo { width: 96px; left: 0; }
     .steps, .grid { grid-template-columns: 1fr; }
-    .step .phone { margin-bottom: -160px; }
+    .hero-shots .back { right: -30%; }
     section { padding: 64px 0; }
   }
   @media (max-width: 520px) {
@@ -167,7 +179,10 @@
       </div>
       <div class="hero-art">
         <img class="hero-logo" src="images/logo.png" alt="" />
-        <div class="phone"><img src="images/home.jpg" alt="Shatter home screen: days alcohol-free, a full beer bottle, money saved, drinks skipped and calories" /></div>
+        <div class="hero-shots">
+          <img class="shot back" src="images/home-wine.webp" alt="Shatter home screen with a wine bottle, 12 days alcohol-free" />
+          <img class="shot front" src="images/home.webp" alt="Shatter home screen: days alcohol-free, a full beer bottle, money saved, drinks skipped and calories" />
+        </div>
       </div>
     </div>
   </div>
@@ -181,19 +196,19 @@
           <div class="num">1</div>
           <h3>Check in</h3>
           <p>Tell us how you feel each evening and keep your alcohol-free streak going.</p>
-          <div class="phone small"><img src="images/checkin.jpg" alt="Daily check-in: how are you feeling today?" loading="lazy" /></div>
+          <img class="shot step-shot" src="images/checkin.webp" alt="Daily check-in: how are you feeling today?" loading="lazy" />
         </div>
         <div class="step">
           <div class="num">2</div>
           <h3>Log honestly</h3>
           <p>Had a drink? Log a glass or a bottle and your bottle empties. Tomorrow it's full again.</p>
-          <div class="phone small"><img src="images/log.jpg" alt="Log a drink: add a glass or a whole bottle" loading="lazy" /></div>
+          <img class="shot step-shot" src="images/log.webp" alt="Log a drink: add a glass or a whole bottle" loading="lazy" />
         </div>
         <div class="step">
           <div class="num">3</div>
           <h3>See your progress</h3>
           <p>Your calendar and chart show every alcohol-free day and how your drinking is changing.</p>
-          <div class="phone small"><img src="images/calendar.jpg" alt="Calendar of alcohol-free days and a drinks-per-day chart" loading="lazy" /></div>
+          <img class="shot step-shot" src="images/calendar.webp" alt="Calendar of alcohol-free days and a drinks-per-day chart" loading="lazy" />
         </div>
       </div>
     </div>
@@ -253,16 +268,11 @@
 <footer>
   <div class="wrap">
     <span>© 2026 Shatter</span>
-    <span>Not medical advice. If you drink heavily, talk to a doctor before stopping.</span>
+    <nav class="links"><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
   </div>
+  <div class="wrap"><span class="disclaimer">Not medical advice. If you drink heavily, talk to a doctor before stopping.</span></div>
 </footer>
 
-<script>
-  // Set once the app is live; every download button uses it.
-  var APP_STORE_URL = '';
-  if (APP_STORE_URL) {
-    document.querySelectorAll('.store-link').forEach(function (a) { a.href = APP_STORE_URL; });
-  }
-</script>
+<script src="site.js"></script>
 </body>
 </html>
